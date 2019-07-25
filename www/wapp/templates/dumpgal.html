@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content%} 
+<div class='container text-center'>
+<hr>
+<h1 align="center" style="color:Tomato">&#128293; Gallery &#128293;</h1>
+<hr>
+	<div class='row'>
+		{% for obj in object_list %}
+    	<div class='col-md-2 col-sm-6 text-center'>
+			<a href='{{ obj.url }}' title="{{ obj.name }}" target="_blank"><img src='{{ obj.thumbnail }}' class='img-thumbnail'></a>
+		</div>   
+		{% endfor %}
+	</div>
+</div>	
+		
+		
+	
+		<div class="pagination justify-content-center" style="margin:10px 0">
+			
+			{% if object_list.has_previous %}
+    			<li><a href="?page={{ object_list.previous_page_number }}"><i class="nav-item" aria-hidden="true"></i></a></li>
+			{% else %}
+    			<li class="disabled"><span><i class="nav-item" aria-hidden="true"></i></span></li>
+			{% endif %}
+
+			{% if object_list.number|add:'-4' > 1 %}
+    			<li><a href="?page={{ object_list.number|add:'-5' }}" class='page-link'>&laquo;</a></li>
+			{% endif %}
+
+			{% for i in object_list.paginator.page_range %}
+    			{% if object_list.number == i %}
+        			<li class='page-item.active'><a class ='page-link'>{{ i }} <span class="sr-only">(current)</span></a></li>
+    			{% elif i > object_list.number|add:'-5' and i < object_list.number|add:'5' %}
+        			<li class='page-item'><a href="?page={{ i }}" class='page-link'  >{{ i }}</a></li>
+    			{% endif %}
+			{% endfor %}
+
+			{% if object_list.paginator.num_pages > object_list.number|add:'4' %}
+    			<li><a href="?page={{ object_list.number|add:'5' }}" class='page-link'>&raquo;</a></li>
+			{% endif %}
+
+			{% if object_list.has_next %}
+    			<li><a href="?page={{ object_list.next_page_number }}"><i class="nav-item" aria-hidden="true"></i></a></li>
+			{% else %}
+   				 <li class="disabled"><span><i class="nav-item" aria-hidden="true"></i></span></li>
+			{% endif %}
+		
+		</div>
+<hr>
+<div class='container'>
+	<div class='row'>
+		<div class='col-md-12'><a href="{% url 'models'  %}"><h1 align="center" style="color:#000000">Top galleries</h1></a></div>
+		{% for obj in object_list %}
+    	<div class='col-md-2 col-sm-6' >
+			<a href='{{ obj.url }}' target="_blank" ><p class="font-italic" style="color:#33130e">{{ obj.id }}.{{ obj.name }}</p></a>
+		</div>   
+		{% endfor %}
+	</div>
+</div>	
+<hr>
+
+{% endblock  %}

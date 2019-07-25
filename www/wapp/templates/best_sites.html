@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='container text-center'>
+	<hr>
+<h1 align="center" style="color:Tomato">&#10024; Best sites &#10024;</h1>
+<hr>
+	<div class='row'>
+		{% for b_site in b_sites %}
+		
+		
+		<div class='col-sm-6 col-md-4 mb-3'>
+			<a href='{{ b_site.url }}' target="_blank" ><img src='{{ b_site.image.url }}'  title="{{ b_site.name }}"></a>
+		</div>
+		<div class='col-sm-5 col-md-7 mb-3'>
+			<h2 class = 'text-center'>{{ b_site.title }}</h2>
+			<p>{{ b_site.content }}</p>
+		</div>
+		<div class='col-sm-1 col-md-1 mb-3 text-center'>
+			<a href='{{b_site.url }}' target="_blank" ><button class='btn btn-primary text-center'>Site</button></a>
+		</div>
+		{% endfor %}
+		
+	</div>
+
+
+</div>
+{% endblock content %}
+        

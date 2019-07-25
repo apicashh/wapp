@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+
+
+{% block content%} 
+
+<hr>
+
+<h1 align="center" style="color:Tomato">&#127798; SHEMALES STARS &#127798;</h1>
+
+<hr>
+
+<div class='container'>
+	<div class='row'>
+		{% for obj in object_list %}
+
+    	<div class='col-md-4 col-sm-6 mb-3 text-center'>
+    		<a href='{{ obj.url }}' target="_blank" ><img src='{{ obj.thumbnail }}' width=250px height=250px title="{{ obj.name }}"></a>	
+		</div>   
+
+		{% endfor %}
+			
+	</div>
+</div>	
+		
+		
+	
+		<div class="pagination justify-content-center" style="margin:10px 0">
+			
+			{% if object_list.has_previous %}
+    			<li><a href="?page={{ object_list.previous_page_number }}"><i class="nav-item" aria-hidden="true"></i></a></li>
+			{% else %}
+    			<li class="disabled"><span><i class="nav-item" aria-hidden="true"></i></span></li>
+			{% endif %}
+
+			{% if object_list.number|add:'-4' > 1 %}
+    			<li><a href="?page={{ object_list.number|add:'-5' }}" class='page-link'>&laquo;</a></li>
+			{% endif %}
+
+			{% for i in object_list.paginator.page_range %}
+    			{% if object_list.number == i %}
+        			<li class='page-item.active'><a class ='page-link'>{{ i }} <span class="sr-only">(current)</span></a></li>
+    			{% elif i > object_list.number|add:'-5' and i < object_list.number|add:'5' %}
+        			<li class='page-item'><a href="?page={{ i }}" class='page-link'  >{{ i }}</a></li>
+    			{% endif %}
+			{% endfor %}
+
+			{% if object_list.paginator.num_pages > object_list.number|add:'4' %}
+    			<li><a href="?page={{ object_list.number|add:'5' }}" class='page-link'>&raquo;</a></li>
+			{% endif %}
+
+			{% if object_list.has_next %}
+    			<li><a href="?page={{ object_list.next_page_number }}"><i class="nav-item" aria-hidden="true"></i></a></li>
+			{% else %}
+   				 <li class="disabled"><span><i class="nav-item" aria-hidden="true"></i></span></li>
+			{% endif %}
+		
+		</div>
+		
+
+{% endblock  %}
